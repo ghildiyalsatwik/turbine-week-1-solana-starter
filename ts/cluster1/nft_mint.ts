@@ -1,7 +1,6 @@
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults"
 import { createSignerFromKeypair, signerIdentity, generateSigner, percentAmount } from "@metaplex-foundation/umi"
 import { createNft, mplTokenMetadata } from "@metaplex-foundation/mpl-token-metadata";
-
 import wallet from "./wallet/turbin3-wallet.json"
 import base58 from "bs58";
 
@@ -16,11 +15,24 @@ umi.use(mplTokenMetadata())
 const mint = generateSigner(umi);
 
 (async () => {
-    // let tx = ???
-    // let result = await tx.sendAndConfirm(umi);
-    // const signature = base58.encode(result.signature);
     
-    // console.log(`Succesfully Minted! Check out your TX here:\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`)
+    let tx = createNft(umi, {
+
+        mint,
+
+        name: "Best RUG",
+
+        symbol: "RUG",
+
+        uri: "https://gateway.irys.xyz/fFdCraPYDrqKReTccZ66mk6UnDsY5DHhnToghCRTD8d",
+
+        sellerFeeBasisPoints: percentAmount(5)
+    });
+    
+    let result = await tx.sendAndConfirm(umi);
+    const signature = base58.encode(result.signature);
+    
+    console.log(`Succesfully Minted! Check out your TX here:\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`)
 
     console.log("Mint Address: ", mint.publicKey);
 })();
