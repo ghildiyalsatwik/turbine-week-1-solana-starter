@@ -20,7 +20,7 @@ const mint = new PublicKey("CE4gMspmcuvLk1AHTLZvpVcbLPDXcqCrWPzLkVy7uXr6");
         // const ata = ???
         // console.log(`Your ata is: ${ata.address.toBase58()}`);
 
-        const secondWalletPubkey = new PublicKey("D6cjkmS61Ar8UGFCCsq7QSH8y35WWy28vwYAJKNK6EXC");
+        const secondWalletPubkey = new PublicKey(keypair.publicKey.toBase58()); //minting to myself to be able to transfer later
 
         const ata = await getOrCreateAssociatedTokenAccount(connection, keypair, mint, secondWalletPubkey);
 
